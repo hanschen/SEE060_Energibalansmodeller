@@ -4,6 +4,9 @@ import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 from ipywidgets import widgets
 
+import conf
+from localization import localize
+
 
 def create_sliders(variables):
     """Return a dictionary with some standard slider widgets.
@@ -27,7 +30,7 @@ def create_sliders(variables):
             min=-273.0,
             max=100.0,
             step=1.0,
-            description="Temperature",
+            description=localize("Temperature"),
             readout_format=".0f",
             **common_kwargs,
         )
@@ -38,7 +41,7 @@ def create_sliders(variables):
             min=70.0,
             max=130.0,
             step=1.0,
-            description="Solar intensity (% of present value)",
+            description=localize("Solar intensity (% of present value)"),
             readout_format=".0f",
             **common_kwargs,
         )
@@ -49,7 +52,7 @@ def create_sliders(variables):
             min=0.0,
             max=1.0,
             step=0.01,
-            description="Planet albedo (fraction)",
+            description=localize("Planet albedo (fraction)"),
             readout_format=".2f",
             **common_kwargs,
         )
@@ -60,7 +63,7 @@ def create_sliders(variables):
             min=0.7,
             max=1.0,
             step=0.001,
-            description="Infrared emissivity (fraction)",
+            description=localize("Infrared emissivity (fraction)"),
             readout_format=".3f",
             **common_kwargs,
         )
@@ -71,7 +74,7 @@ def create_sliders(variables):
             min=0.0,
             max=0.5,
             step=0.001,
-            description="Optical absorptivity (fraction)",
+            description=localize("Optical absorptivity (fraction)"),
             readout_format=".3f",
             **common_kwargs,
         )
@@ -94,7 +97,7 @@ def draw_thermometers(temperatures, title=None, colors=None, **kwargs):
 
     fig, axes = plt.subplots(1, num_thermometers)
     if title is not None:
-        fig.suptitle(title)
+        fig.suptitle(localize(title))
 
     # Workaround for when there is only one thermometer
     if num_thermometers == 1:
@@ -228,7 +231,7 @@ class Thermometer:
             ax.get_figure().suptitle(title)
 
         if description:
-            ax.set_xlabel(description)
+            ax.set_xlabel(localize(description))
 
         if self._temp_text is not None:
             self._temp_text.remove()
