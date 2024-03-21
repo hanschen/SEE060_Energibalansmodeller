@@ -4,7 +4,7 @@ Enkla energibalansmodeller skrivna i Python för kursen SEE060 Jorden som system
 på [Chalmers Tekniska Högskola](https://www.chalmers.se/).
 
 
-## Köra i binder
+## Köra online
 
 Om du är här som student kan du öppna energymodellerna genom att klicka på knappen nedan:
 
