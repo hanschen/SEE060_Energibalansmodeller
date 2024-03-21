@@ -21,7 +21,7 @@ def radiation_model_simplest(solar_intensity_percent, planet_albedo):
     return temperatures
 
 
-temperatures = radiation_model_simplest(100, 0.3)
+temperatures = radiation_model_simplest(solar_intensity_percent=100, planet_albedo=0.3)
 
 
 utils.draw_thermometers(

@@ -33,7 +33,9 @@ def radiation_model_greenhouse_effect(
     return temperatures
 
 
-temperatures = radiation_model_greenhouse_effect(100.0, 0.3, 0.9)
+temperatures = radiation_model_greenhouse_effect(
+    solar_intensity_percent=100.0, planet_albedo=0.3, infrared_emissivity=0.9
+)
 
 utils.draw_thermometers(
     temperatures,

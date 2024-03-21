@@ -42,7 +42,10 @@ def radiation_model_greenhouse_effect_and_solar_absorption(
 
 
 temperatures = radiation_model_greenhouse_effect_and_solar_absorption(
-    100, 0.3, 0.9, 0.105
+    solar_intensity_percent=100,
+    planet_albedo=0.3,
+    infrared_emissivity=0.9,
+    optical_absorptivity=0.105,
 )
 
 utils.draw_thermometers(
