@@ -101,6 +101,9 @@ def draw_thermometers(
     with plt.ioff():
         fig, axes = plt.subplots(1, num_thermometers)
         fig.canvas.header_visible = False
+        fig.canvas.toolbar_visible = False
+        fig.canvas.footer_visible = False
+        fig.canvas.resizable = False
     if title is not None:
         fig.suptitle(localize(title))
 
