@@ -38,8 +38,8 @@ def create_sliders(variables):
     if "solar" in variables:
         sliders["solar_intensity_percent"] = widgets.FloatSlider(
             value=100.0,
-            min=70.0,
-            max=130.0,
+            min=50.0,
+            max=150.0,
             step=1.0,
             description=localize("Solar intensity (% of present value)"),
             readout_format=".0f",
