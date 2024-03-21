@@ -1,5 +1,3 @@
-from ipywidgets import interact
-
 import constants
 import utils
 
@@ -22,38 +20,34 @@ def radiation_model_greenhouse_effect_and_solar_absorption(
     # of the atmosphere
     A_e = (1 - optical_absorptivity) ** 2 * planet_albedo
 
-    sfc_temp = (
+    sfc_temp_K = (
         (solar_intensity * (1 - A_e + A_prime))
         / (4 * sigma * (2 - infrared_emissivity))
     ) ** (1 / 4)
 
-    atm_temp = (
+    atm_temp_K = (
         (solar_intensity * (1 - A_e - A_prime * (1 - infrared_emissivity)))
         / (4 * infrared_emissivity * sigma * (2 - infrared_emissivity))
     ) ** (1 / 4)
 
-    return sfc_temp, atm_temp
-
-
-sliders = utils.create_sliders(["solar", "albedo", "emissivity", "absorptivity"])
-
-
-@interact(**sliders)
-def draw(
-    solar_intensity_percent, planet_albedo, infrared_emissivity, optical_absorptivity
-):
-    sfc_temp_K, atm_temp_K = radiation_model_greenhouse_effect_and_solar_absorption(
-        solar_intensity_percent,
-        planet_albedo,
-        infrared_emissivity,
-        optical_absorptivity,
-    )
     sfc_temp_C = sfc_temp_K + constants.ABSOLUTE_ZERO_DEG_C
     atm_temp_C = atm_temp_K + constants.ABSOLUTE_ZERO_DEG_C
+
     temperatures = {
         "Surface temperature": sfc_temp_C,
         "Atmospheric temperature": atm_temp_C,
     }
-    utils.draw_thermometers(
-        temperatures, title="With greenhouse effect and solar absorption"
-    )
+
+    return temperatures
+
+
+temperatures = radiation_model_greenhouse_effect_and_solar_absorption(
+    100, 0.3, 0.9, 0.105
+)
+
+utils.draw_thermometers(
+    temperatures,
+    radiation_model=radiation_model_greenhouse_effect_and_solar_absorption,
+    variables=["solar", "albedo", "emissivity", "absorptivity"],
+    title="With greenhouse effect and solar absorption",
+)

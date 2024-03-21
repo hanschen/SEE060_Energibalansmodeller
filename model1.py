@@ -1,5 +1,3 @@
-from ipywidgets import interact
-
 import constants
 import utils
 
@@ -14,17 +12,20 @@ def radiation_model_simplest(solar_intensity_percent, planet_albedo):
     solar_intensity = solar_intensity_percent / 100 * constants.SOLAR_INTENSITY
     sigma = constants.STEFAN_BOLTZMANN_CONSTANT
 
-    sfc_temp = ((solar_intensity * (1 - planet_albedo)) / (4 * sigma)) ** (1 / 4)
+    sfc_temp_K = ((solar_intensity * (1 - planet_albedo)) / (4 * sigma)) ** (1 / 4)
 
-    return sfc_temp
-
-
-sliders = utils.create_sliders(["solar", "albedo"])
-
-
-@interact(**sliders)
-def draw(solar_intensity_percent, planet_albedo):
-    sfc_temp_K = radiation_model_simplest(solar_intensity_percent, planet_albedo)
     sfc_temp_C = sfc_temp_K + constants.ABSOLUTE_ZERO_DEG_C
+
     temperatures = {"Surface temperature": sfc_temp_C}
-    utils.draw_thermometers(temperatures, title="Simplest model")
+
+    return temperatures
+
+
+temperatures = radiation_model_simplest(100, 0.3)
+
+
+utils.draw_thermometers(
+    temperatures,
+    radiation_model=radiation_model_simplest,
+    variables=["solar", "albedo"],
+)
