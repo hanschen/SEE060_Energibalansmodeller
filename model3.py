@@ -48,7 +48,7 @@ temperatures = radiation_model_greenhouse_effect_and_solar_absorption(
     optical_absorptivity=0.105,
 )
 
-utils.draw_thermometers(
+utils.display_model(
     temperatures,
     radiation_model=radiation_model_greenhouse_effect_and_solar_absorption,
     variables=["solar", "albedo", "emissivity", "absorptivity"],

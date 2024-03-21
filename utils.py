@@ -97,12 +97,13 @@ def create_unit_label(variable):
     return widgets.Label(unit, layout=layout)
 
 
-def draw_thermometers(
+def display_model(
     temperatures, radiation_model, variables, title=None, colors=None, **kwargs
 ):
-    """Draw thermometers for descriptions and temperatures in ``temperatures`` dict.
+    """Display control widgets and model output.
 
-    The temperatures should be in degrees Celsius.
+    ``temperatures`` should be a dict containing temperatures in degree Celsius.
+    The temperatures will be displayed as thermometers.
 
     ``ratiation_model`` is a callable accepting arguments with names in ``variables``.
 
