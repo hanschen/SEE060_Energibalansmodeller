@@ -26,10 +26,12 @@ def radiation_model_greenhouse_effect_and_solar_absorption(
         (solar_intensity * (1 - A_e + A_prime))
         / (4 * sigma * (2 - infrared_emissivity))
     ) ** (1 / 4)
+
     atm_temp = (
-        (4 * sigma * sfc_temp**4 - solar_intensity * A_prime)
-        / (4 * infrared_emissivity * sigma)
+        (solar_intensity * (1 - A_e - A_prime * (1 - infrared_emissivity)))
+        / (4 * infrared_emissivity * sigma * (2 - infrared_emissivity))
     ) ** (1 / 4)
+
     return sfc_temp, atm_temp
 
 
