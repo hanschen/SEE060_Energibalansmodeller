@@ -8,7 +8,7 @@ LANG_SV = {
     "With greenhouse effect": "Med växthuseffekt",
     "With greenhouse effect and solar absorption": "Med växthuseffekt och absorption av solstrålning",  # noqa
     # Descriptions
-    "Surface temperature": "Jordytans temperatur",
+    "Surface temperature": "Markens temperatur",
     "Atmospheric temperature": "Atmosfärens temperatur",
     # Sliders
     "Temperature": "Temperatur",
