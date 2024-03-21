@@ -15,7 +15,7 @@ Det kan ta lite tid innan det startar.
 
 ## Köra lokalt
 
-Om du vill köra koden lokalt kan du antingen klona repot med Git,
+Om du vill köra koden lokalt på din egen dator kan du antingen klona repot med Git,
 alternativt ladda ner en [zip] från GitHub.
 
 Modellerna körs i Jupyter Notebooks.
