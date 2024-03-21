@@ -10,7 +10,7 @@ Om du är här som student kan du öppna energymodellerna genom att klicka på k
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hanschen/SEE060_Energibalansmodeller/HEAD?labpath=introduktion.ipynb)
 
-(Det tar lite tid innan det startar. Ha tålamod.)
+Det kan ta lite tid innan det startar.
 
 
 ## Köra lokalt
