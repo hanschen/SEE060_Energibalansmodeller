@@ -2,83 +2,99 @@
 
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
-from ipywidgets import AppLayout, VBox, widgets
+from ipywidgets import AppLayout, HBox, VBox, widgets
 
 from localization import localize
 
 
-def create_sliders(variables):
-    """Return a dictionary with some standard slider widgets.
+def create_slider(variable):
+    """Return a slider widget for ``variable``.
 
     Parameters
     ----------
-    variables : list, {"temperature", "solar", "albedo", "emissivity"}
-        A list containing variables to create sliders for.
+    variable : {"temperature", "solar", "albedo", "emissivity"}
+        The variable to create the slider for.
 
     """
     layout = widgets.Layout(width="60%", height="auto")
-    common_kwargs = dict(
-        layout=layout,
-        style={"description_width": "initial"},
-    )
-    sliders = {}
 
-    if "temperature" in variables:
-        sliders["temperature"] = widgets.FloatSlider(
+    if variable == "temperature":
+        return widgets.FloatSlider(
             value=20.0,
             min=-273.0,
             max=100.0,
             step=1.0,
-            description=localize("Temperature"),
             readout_format=".0f",
-            **common_kwargs,
+            layout=layout,
         )
 
-    if "solar" in variables:
-        sliders["solar_intensity_percent"] = widgets.FloatSlider(
+    elif variable == "solar":
+        return widgets.FloatSlider(
             value=100.0,
             min=50.0,
             max=150.0,
             step=1.0,
-            description=localize("Solar intensity (% of present value)"),
             readout_format=".0f",
-            **common_kwargs,
+            layout=layout,
         )
 
-    if "albedo" in variables:
-        sliders["planet_albedo"] = widgets.FloatSlider(
+    elif variable == "albedo":
+        return widgets.FloatSlider(
             value=0.30,
             min=0.0,
             max=1.0,
             step=0.01,
-            description=localize("Planet albedo (fraction)"),
             readout_format=".2f",
-            **common_kwargs,
+            layout=layout,
         )
 
-    if "emissivity" in variables:
-        sliders["infrared_emissivity"] = widgets.FloatSlider(
+    elif variable == "emissivity":
+        return widgets.FloatSlider(
             value=0.9,
             min=0.7,
             max=1.0,
             step=0.001,
-            description=localize("Infrared emissivity (fraction)"),
             readout_format=".3f",
-            **common_kwargs,
+            layout=layout,
         )
 
-    if "absorptivity" in variables:
-        sliders["optical_absorptivity"] = widgets.FloatSlider(
+    elif variable == "absorptivity":
+        return widgets.FloatSlider(
             value=0.105,
             min=0.0,
             max=0.5,
             step=0.001,
-            description=localize("Optical absorptivity (fraction)"),
             readout_format=".3f",
-            **common_kwargs,
+            layout=layout,
         )
 
-    return sliders
+
+def create_decription_label(variable):
+    descriptions = {
+        "temperature": "Temperature",
+        "solar": "Solar intensity",
+        "albedo": "Planet albedo",
+        "emissivity": "Infrared emissivity",
+        "absorptivity": "Optical absorptivity",
+    }
+    layout = widgets.Layout(
+        width="20%", height="auto", display="flex", justify_content="flex-end"
+    )
+    description = localize(descriptions[variable])
+    return widgets.Label(description, layout=layout)
+
+
+def create_unit_label(variable):
+    units = {
+        "temperature": "°C",
+        "solar": "% of present value",
+        "albedo": "(fraction)",
+        "emissivity": "(fraction)",
+        "absorptivity": "(fraction)",
+    }
+    layout = widgets.Layout(width="20%", height="auto")
+    unit = localize(units[variable])
+    return widgets.Label(unit, layout=layout)
 
 
 def draw_thermometers(
@@ -93,8 +109,8 @@ def draw_thermometers(
     Accepts optional title for the figure, list of colors for the thermometers, and
     kwargs passed to the Thermometer class.
     """
+
     num_thermometers = len(temperatures)
-    sliders = create_sliders(variables)
     if colors is None:
         colors = ["r", "b"] * num_thermometers
 
@@ -104,8 +120,20 @@ def draw_thermometers(
         fig.canvas.toolbar_visible = False
         fig.canvas.footer_visible = False
         fig.canvas.resizable = False
+
     if title is not None:
         fig.suptitle(localize(title))
+
+    # Create control widgets
+    widgets = []
+    sliders = []
+
+    for var in variables:
+        description_label = create_decription_label(var)
+        slider = create_slider(var)
+        unit_label = create_unit_label(var)
+        sliders.append(slider)
+        widgets.append(HBox([description_label, slider, unit_label]))
 
     # Workaround for when there is only one thermometer
     if num_thermometers == 1:
@@ -122,7 +150,7 @@ def draw_thermometers(
 
     # Update them when a slider changes
     def update(change):
-        temperatures = radiation_model(*[slider.value for slider in sliders.values()])
+        temperatures = radiation_model(*[slider.value for slider in sliders])
         for i, (description, temperature) in enumerate(temperatures.items()):
             kwargs_current = kwargs.copy()
             kwargs_current["facecolor"] = colors[i]
@@ -132,10 +160,10 @@ def draw_thermometers(
         fig.canvas.draw()
         fig.canvas.flush_events()
 
-    [slider.observe(update, names="value") for slider in sliders.values()]
+    [slider.observe(update, names="value") for slider in sliders]
 
     return AppLayout(
-        header=VBox(list(sliders.values())),
+        header=VBox(widgets),
         center=fig.canvas,
         pane_heights=[1, 6, 0],
     )

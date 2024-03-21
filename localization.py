@@ -10,12 +10,16 @@ LANG_SV = {
     # Descriptions
     "Surface temperature": "Markens temperatur",
     "Atmospheric temperature": "Atmosfärens temperatur",
-    # Sliders
+    # Sliders descriptions
     "Temperature": "Temperatur",
-    "Solar intensity (% of present value)": "Solens intensitet (% av dagens värde)",
-    "Planet albedo (fraction)": "Planetens albedo (andel)",
-    "Infrared emissivity (fraction)": "Infraröd emissivitet (andel)",
-    "Optical absorptivity (fraction)": "Optisk absorptionsförmåga (andel)",
+    "Solar intensity": "Solens intensitet",
+    "Planet albedo": "Planetens albedo",
+    "Infrared emissivity": "Infraröd emissivitet",
+    "Optical absorptivity": "Optisk absorptionsförmåga",
+    # Sliders units
+    "°C": "°C",
+    "% of present value": "% av dagens värde",
+    "(fraction)": "(andel)",
 }
 
 
