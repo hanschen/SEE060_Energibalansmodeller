@@ -13,14 +13,17 @@ def radiation_model_greenhouse_effect(
     """
     solar_intensity = solar_intensity_percent / 100 * constants.SOLAR_INTENSITY
     sigma = constants.STEFAN_BOLTZMANN_CONSTANT
+
     sfc_temp = (
         (solar_intensity * (1 - planet_albedo))
         / (sigma * (4 - 2 * infrared_emissivity))
     ) ** (1 / 4)
+
     atm_temp = (
         (solar_intensity * (1 - planet_albedo))
         / (sigma * (8 - 4 * infrared_emissivity))
     ) ** (1 / 4)
+
     return sfc_temp, atm_temp
 
 

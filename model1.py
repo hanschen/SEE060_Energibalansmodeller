@@ -13,7 +13,9 @@ def radiation_model_simplest(solar_intensity_percent, planet_albedo):
     """
     solar_intensity = solar_intensity_percent / 100 * constants.SOLAR_INTENSITY
     sigma = constants.STEFAN_BOLTZMANN_CONSTANT
+
     sfc_temp = ((solar_intensity * (1 - planet_albedo)) / (4 * sigma)) ** (1 / 4)
+
     return sfc_temp
 
 
