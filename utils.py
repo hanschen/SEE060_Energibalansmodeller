@@ -2,7 +2,7 @@
 
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
-from ipywidgets import widgets, AppLayout, VBox
+from ipywidgets import AppLayout, VBox, widgets
 
 from localization import localize
 
